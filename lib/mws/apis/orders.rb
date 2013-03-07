@@ -11,6 +11,13 @@ class Mws::Apis::Orders
     }
   end
 
+  def status(params={})
+    params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
+    options = @option_defaults.merge action: 'GetServiceStatus'
+    doc = @connection.get "/Orders/#{options[:version]}", params, options
+    doc
+  end
+
   def list(params={})
     params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
     options = @option_defaults.merge action: 'ListOrders'

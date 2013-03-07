@@ -25,4 +25,11 @@ class Mws::Apis::Orders
     doc
   end
 
+  def list_items(params={})
+    params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
+    options = @option_defaults.merge action: 'ListOrderItems'
+    doc = @connection.get "/Orders/#{options[:version]}", params, options
+    doc
+  end
+
 end

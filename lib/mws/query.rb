@@ -11,9 +11,9 @@ class Mws::Query
 
     options[:aws_access_key_id] ||= options.delete :access
     options[:seller_id] ||= options.delete(:merchant) || options.delete(:seller)
-    options[:marketplace_id] ||= options.delete(:markets) || []
+    options[:marketplace_id] ||= options.delete(:markets) || options.delete(:market) || []
     list_pattern = options.delete(:list_pattern) || '%{key}List.%{ext}.%<index>d'
-    
+
     @params = Hash[options.inject({}) do | params, entry |
       key = normalize_key entry.first
       if entry.last.respond_to? :each_with_index

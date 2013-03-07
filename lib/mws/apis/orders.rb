@@ -15,9 +15,7 @@ class Mws::Apis::Orders
     params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
     options = @option_defaults.merge action: 'ListOrders'
     doc = @connection.get "/Orders/#{options[:version]}", params, options
-    doc.xpath('Orders/Order').map do | node |
-      'Someday this will be an Order'
-    end
+    doc
   end
 
 end

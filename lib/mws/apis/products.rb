@@ -17,8 +17,15 @@ class Mws::Apis::Products
     doc
   end
 
-  def listMatchingProducts(params={})
+  def list_matching_products(params={})
     options = @option_defaults.merge action: 'ListMatchingProducts'
+    doc = @connection.get "/Products/#{options[:version]}", params, options
+    doc
+  end
+
+  def get_competitive_pricing_for_sku(params={})
+    params[:Seller_SKU_List] ||= [ params.delete(:SellerSKUList) || [] ].flatten.compact
+    options = @option_defaults.merge action: 'GetCompetitivePricingForSKU'
     doc = @connection.get "/Products/#{options[:version]}", params, options
     doc
   end

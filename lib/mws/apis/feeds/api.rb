@@ -2,7 +2,7 @@ module Mws::Apis::Feeds
 
   class Api
 
-    attr_reader :products, :images, :prices, :shipping, :inventory
+    attr_reader :products, :order_fulfillment, :images, :prices, :shipping, :inventory
 
     def initialize(connection, defaults={})
       raise Mws::Errors::ValidationError, 'A connection is required.' if connection.nil?
@@ -11,6 +11,7 @@ module Mws::Apis::Feeds
       @defaults = defaults
       
       @products = self.for :product
+      @order_fulfillment = self.for :order_fulfillment
       @images = self.for :image
       @prices = self.for :price
       @shipping = self.for :override
@@ -92,6 +93,7 @@ module Mws::Apis::Feeds
       end
       Transaction.new @feeds.submit(feed.to_xml, feed_type: @feed_type, purge_and_replace: purge_and_replace) do 
         messages.each do | message |
+          binding.pry
           item message.id, message.resource.sku, message.operation_type, 
             message.resource.respond_to?(:type) ? message.resource.type : nil
         end

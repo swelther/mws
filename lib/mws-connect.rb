@@ -24,6 +24,7 @@ module Mws
     :Money,
     :PriceListing,
     :Product,
+    :OrderFulfillment,
     :Shipping,
     :Weight
 

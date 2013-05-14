@@ -7,6 +7,7 @@ module Mws::Apis::Feeds
   autoload :Inventory, 'mws/apis/feeds/inventory'
   autoload :Measurement, 'mws/apis/feeds/measurement'
   autoload :Money, 'mws/apis/feeds/money'
+  autoload :OrderFulfillment, 'mws/apis/feeds/order_fulfillment'
   autoload :PriceListing, 'mws/apis/feeds/price_listing'
   autoload :Product, 'mws/apis/feeds/product'
   autoload :SalePrice, 'mws/apis/feeds/sale_price'

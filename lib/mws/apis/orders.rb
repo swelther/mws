@@ -128,7 +128,7 @@ class Mws::Apis::Orders
       xml.AmazonEnvelope('xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance', 'xsi:noNamespaceSchemaLocation' => 'amznenvelope.xsd') {
         xml.Header {
           xml.DocumentVersion '1.01'
-          xml.MerchantIdentifier 'lichtspot'
+          xml.MerchantIdentifier params[:merchant_identifier]
         }
         xml.MessageType 'OrderFulfillment'
 

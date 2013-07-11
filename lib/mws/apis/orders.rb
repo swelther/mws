@@ -113,9 +113,9 @@ class Mws::Apis::Orders
     raise Mws::Errors::ValidationError.new('orders must be an array') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if !orders.first.has_key?(:amazon_order_id)
     raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if orders.first[:amazon_order_id].empty?
-    raise Mws::Errors::ValidationError.new('A carrier_code is needed') if !params.has_key?(:carrier_code) || params[:carrier_code].empty?
-    raise Mws::Errors::ValidationError.new('A shipping_method is needed') if !params.has_key?(:shipping_method) || params[:shipping_method].empty?
-    raise Mws::Errors::ValidationError.new('A shipping_tracking_number is needed') if !params.has_key?(:shipping_tracking_number) || params[:shipping_tracking_number].empty?
+    raise Mws::Errors::ValidationError.new('A carrier_code is needed') if !orders.first.has_key?(:carrier_code) || orders.first[:carrier_code].empty?
+    raise Mws::Errors::ValidationError.new('A shipping_method is needed') if !orders.first.has_key?(:shipping_method) || orders.first[:shipping_method].empty?
+    raise Mws::Errors::ValidationError.new('A shipping_tracking_number is needed') if !orders.first.has_key?(:shipping_tracking_number) || orders.first[:shipping_tracking_number].empty?
     raise Mws::Errors::ValidationError.new('orders must be a array.') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('At least one order is needed.') if orders.count == 0
     raise Mws::Errors::ValidationError.new('order_items must be a array.') if !orders.first[:order_items].is_a?(Array)
@@ -136,13 +136,13 @@ class Mws::Apis::Orders
           xml.Message {
             xml.MessageID (message_number+=1).to_s
             xml.OrderFulfillment {
-              xml.AmazonOrderID orders[:amazon_order_id]
+              xml.AmazonOrderID order[:amazon_order_id]
               xml.MerchantOrderID params[:merchent_order_id] if params.has_key?(:merchent_order_id)
-              xml.FulfillmentDate params.has_key?(:fulfillment_date) ? params[:fulfillment_date] : Time.now.iso8601
+              xml.FulfillmentDate order.has_key?(:fulfillment_date) ? order[:fulfillment_date] : Time.now.iso8601
               xml.FulfillmentData {
-                xml.CarrierCode params[:carrier_code]
-                xml.ShippingMethod params[:shipping_method]
-                xml.ShipperTrackingNumber params[:shipping_tracking_number]
+                xml.CarrierCode order[:carrier_code]
+                xml.ShippingMethod order[:shipping_method]
+                xml.ShipperTrackingNumber order[:shipping_tracking_number]
               }
               orders[:order_items].each do | item |
                 xml.Item {

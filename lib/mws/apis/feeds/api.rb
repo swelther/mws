@@ -93,7 +93,6 @@ module Mws::Apis::Feeds
       end
       Transaction.new @feeds.submit(feed.to_xml, feed_type: @feed_type, purge_and_replace: purge_and_replace) do 
         messages.each do | message |
-          binding.pry
           item message.id, message.resource.sku, message.operation_type, 
             message.resource.respond_to?(:type) ? message.resource.type : nil
         end

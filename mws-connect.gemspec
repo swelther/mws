@@ -6,12 +6,12 @@ require 'mws-connect'
 Gem::Specification.new do |gem|
   gem.name          = 'mws-connect'
   gem.version       = Mws::VERSION
-  gem.authors       = ['Sean M. Duncan', 'John E. Bailey']
+  gem.authors       = ['Sebastian Welther', 'Sean M. Duncan', 'John E. Bailey']
   gem.license       = 'MIT'
   gem.email         = ['info@devmode.com']
   gem.description   = %q{The missing ruby client library for Amazon MWS}
   gem.summary       = %q{The missing ruby client library for Amazon MWS}
-  gem.homepage      = 'http://github.com/devmode/mws'
+  gem.homepage      = 'http://github.com/swelther/mws'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

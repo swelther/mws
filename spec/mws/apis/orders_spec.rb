@@ -30,55 +30,55 @@ module Mws::Apis
 
       it 'should require an amazon_order_id' do
         expect {
-          orders.send_fullfillment_data(Hash.new, [])
+          orders.send_fulfillment_data(Hash.new, [{}])
         }.to raise_error Mws::Errors::ValidationError, 'An amazon_order_id is needed'
       end
 
       it 'should require an amazon_order_id' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => ''}, [])
+          orders.send_fulfillment_data({}, [{:amazon_order_id => ''}])
         }.to raise_error Mws::Errors::ValidationError, 'An amazon_order_id is needed'
       end
 
       it 'should require an carrier_code' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '12'}, [])
+          orders.send_fulfillment_data({}, [{:amazon_order_id => '123'}])
         }.to raise_error Mws::Errors::ValidationError, 'A carrier_code is needed'
       end
 
       it 'should require an carrier_code' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '12', :carrier_code => ''}, [])
+          orders.send_fulfillment_data({:carrier_code => ''}, [{:amazon_order_id => '12'}])
         }.to raise_error Mws::Errors::ValidationError, 'A carrier_code is needed'
       end
 
       it 'should require a shipping_method' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '123', :carrier_code => '12'}, [])
+          orders.send_fulfillment_data({:carrier_code => '12'}, [{:amazon_order_id => '123'}])
         }.to raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
       end
 
       it 'should require a shipping_method' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '123', :carrier_code => '12', :shipping_method => ''}, [])
+          orders.send_fulfillment_data({:carrier_code => '12', :shipping_method => ''}, [{:amazon_order_id => '123'}])
         }.to raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
       end
 
       it 'should require a shipping_tracking_number' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '123', :carrier_code => '12', :shipping_method => '12'}, [])
+          orders.send_fulfillment_data({:carrier_code => '12', :shipping_method => '12'}, [{:amazon_order_id => '123'}])
         }.to raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
       end
 
       it 'should require a shipping_tracking_number' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '123', :carrier_code => '12', :shipping_method => '12', :shipping_tracking_number => ''}, [])
+          orders.send_fulfillment_data({:carrier_code => '12', :shipping_method => '12', :shipping_tracking_number => ''}, [{:amazon_order_id => '123'}])
         }.to raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
       end
 
       it 'should require order_items as a array' do
         expect {
-          orders.send_fullfillment_data({:amazon_order_id => '123', :carrier_code => '12', :shipping_method => '123', :shipping_tracking_number => '12'}, '')
+          orders.send_fulfillment_data({:carrier_code => '12', :shipping_method => '123', :shipping_tracking_number => '12'}, [{:amazon_order_id => '111', :order_items => ''}])
         }.to raise_error Mws::Errors::ValidationError, 'order_items must be a array.'
       end
 

@@ -19,9 +19,9 @@ class Mws::Apis::Orders
     doc.xpath('Status').first.text # return the status text
   end
 
-  def list(params={})
+  def get_order(params={})
     params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
-    options = @option_defaults.merge action: 'ListOrders'
+    options = @option_defaults.merge action: 'GetOrder'
     doc = @connection.get "/Orders/#{options[:version]}", params, options
 
     doc.xpath('Orders/Order').map do | node |
@@ -48,6 +48,84 @@ class Mws::Apis::Orders
         }
       }
     end
+  end
+
+  def list(params={})
+    params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
+
+    options = @option_defaults.merge action: 'ListOrders'
+    doc = @connection.get "/Orders/#{options[:version]}", params, options
+
+    response = []
+
+    next_token = doc.xpath('NextToken').text
+
+    doc.xpath('Orders/Order').map do | node |
+      order = {
+        :AmazonOrderId => node.xpath('AmazonOrderId').text,
+        :TotalAmount => node.xpath('OrderTotal/Amount').text,
+        :CurrencyCode => node.xpath('OrderTotal/CurrencyCode').text,
+        :BuyerName => node.xpath('BuyerName').text,
+        :BuyerEmail => node.xpath('BuyerEmail').text,
+        :OrderStatus => node.xpath('OrderStatus').text,
+        :OrderType => node.xpath('OrderType').text,
+        :PaymentMethod => node.xpath('PaymentMethod').text,
+        :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
+        :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
+
+        :shipping_address =>
+        {
+          :name => node.xpath('ShippingAddress/Name').text,
+          :street => node.xpath('ShippingAddress/AddressLine2').text,
+          :post_code => node.xpath('ShippingAddress/PostalCode').text,
+          :city => node.xpath('ShippingAddress/City').text,
+          :country_code => node.xpath('ShippingAddress/CountryCode').text,
+          :phone => node.xpath('ShippingAddress/Phone').text
+        }
+      }
+
+      response.push(order)
+    end
+
+    while !next_token.empty?
+      params[:Next_Token] = next_token
+      params.delete(:market)
+      params.delete(:Created_After)
+      params.delete(:Created_Before)
+      options = @option_defaults.merge action: 'ListOrdersByNextToken'
+      doc = @connection.get "/Orders/#{options[:version]}", params, options
+
+      next_token = doc.xpath('NextToken').text
+
+      doc.xpath('Orders/Order').map do | node |
+        order = {
+          :AmazonOrderId => node.xpath('AmazonOrderId').text,
+          :TotalAmount => node.xpath('OrderTotal/Amount').text,
+          :CurrencyCode => node.xpath('OrderTotal/CurrencyCode').text,
+          :BuyerName => node.xpath('BuyerName').text,
+          :BuyerEmail => node.xpath('BuyerEmail').text,
+          :OrderStatus => node.xpath('OrderStatus').text,
+          :OrderType => node.xpath('OrderType').text,
+          :PaymentMethod => node.xpath('PaymentMethod').text,
+          :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
+          :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
+
+          :shipping_address =>
+          {
+            :name => node.xpath('ShippingAddress/Name').text,
+            :street => node.xpath('ShippingAddress/AddressLine2').text,
+            :post_code => node.xpath('ShippingAddress/PostalCode').text,
+            :city => node.xpath('ShippingAddress/City').text,
+            :country_code => node.xpath('ShippingAddress/CountryCode').text,
+            :phone => node.xpath('ShippingAddress/Phone').text
+          }
+        }
+
+        response.push(order)
+      end
+    end
+
+    response
   end
 
   # Call with :Amazon_Order_Id => 'xxyyzz' (from result of function list) to get the order items

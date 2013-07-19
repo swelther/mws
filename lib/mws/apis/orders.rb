@@ -87,6 +87,8 @@ class Mws::Apis::Orders
       response.push(order)
     end
 
+    # TODO Throttling
+
     while !next_token.empty?
       params[:Next_Token] = next_token
       params.delete(:market)
@@ -177,7 +179,6 @@ class Mws::Apis::Orders
           :Amount => node.xpath('GiftWrapTax/Amount').text,
           :CurrencyCode => node.xpath('GiftWrapTax/CurrencyCode').text
         }
-
       }
     end
   end
@@ -213,6 +214,7 @@ class Mws::Apis::Orders
         orders.each do | order |
           xml.Message {
             xml.MessageID (message_number+=1).to_s
+            order[:message_id] = message_number
             xml.OrderFulfillment {
               xml.AmazonOrderID order[:amazon_order_id]
               xml.MerchantOrderID params[:merchent_order_id] if params.has_key?(:merchent_order_id)
@@ -222,7 +224,7 @@ class Mws::Apis::Orders
                 xml.ShippingMethod order[:shipping_method]
                 xml.ShipperTrackingNumber order[:shipping_tracking_number]
               }
-              orders[:order_items].each do | item |
+              order[:order_items].each do | item |
                 xml.Item {
                   xml.AmazonOrderItemCode item[:order_item_id]
                   xml.Quantity item[:amount]
@@ -233,8 +235,6 @@ class Mws::Apis::Orders
         end
       }
     end.to_xml
-
-    #binding.pry
 
     @connection.feeds.submit order_xml, {:feed_type => :order_fulfillment}
 

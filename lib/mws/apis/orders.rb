@@ -40,7 +40,8 @@ class Mws::Apis::Orders
         :shipping_address =>
         {
           :name => node.xpath('ShippingAddress/Name').text,
-          :street => node.xpath('ShippingAddress/AddressLine2').text,
+          :street1 => node.xpath('ShippingAddress/AddressLine1').text,
+          :street2 => node.xpath('ShippingAddress/AddressLine2').text,
           :post_code => node.xpath('ShippingAddress/PostalCode').text,
           :city => node.xpath('ShippingAddress/City').text,
           :country_code => node.xpath('ShippingAddress/CountryCode').text,
@@ -76,7 +77,8 @@ class Mws::Apis::Orders
         :shipping_address =>
         {
           :name => node.xpath('ShippingAddress/Name').text,
-          :street => node.xpath('ShippingAddress/AddressLine2').text,
+          :street1 => node.xpath('ShippingAddress/AddressLine1').text,
+          :street2 => node.xpath('ShippingAddress/AddressLine2').text,
           :post_code => node.xpath('ShippingAddress/PostalCode').text,
           :city => node.xpath('ShippingAddress/City').text,
           :country_code => node.xpath('ShippingAddress/CountryCode').text,
@@ -115,7 +117,8 @@ class Mws::Apis::Orders
           :shipping_address =>
           {
             :name => node.xpath('ShippingAddress/Name').text,
-            :street => node.xpath('ShippingAddress/AddressLine2').text,
+            :street1 => node.xpath('ShippingAddress/AddressLine1').text,
+            :street2 => node.xpath('ShippingAddress/AddressLine2').text,
             :post_code => node.xpath('ShippingAddress/PostalCode').text,
             :city => node.xpath('ShippingAddress/City').text,
             :country_code => node.xpath('ShippingAddress/CountryCode').text,

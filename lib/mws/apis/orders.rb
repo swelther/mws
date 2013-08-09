@@ -194,10 +194,10 @@ class Mws::Apis::Orders
   def send_fulfillment_data(params, orders)
     raise Mws::Errors::ValidationError.new('orders must be an array') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if !orders.first.has_key?(:amazon_order_id)
-    raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if orders.first[:amazon_order_id].empty?
-    raise Mws::Errors::ValidationError.new('A carrier_code is needed') if !orders.first.has_key?(:carrier_code) || orders.first[:carrier_code].empty?
-    raise Mws::Errors::ValidationError.new('A shipping_method is needed') if !orders.first.has_key?(:shipping_method) || orders.first[:shipping_method].empty?
-    raise Mws::Errors::ValidationError.new('A shipping_tracking_number is needed') if !orders.first.has_key?(:shipping_tracking_number) || orders.first[:shipping_tracking_number].empty?
+    raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if !orders.first[:amazon_order_id].present?
+    raise Mws::Errors::ValidationError.new('A carrier_code is needed') if !orders.first.has_key?(:carrier_code) || !orders.first[:carrier_code].present?
+    raise Mws::Errors::ValidationError.new('A shipping_method is needed') if !orders.first.has_key?(:shipping_method) || !orders.first[:shipping_method].present?
+    raise Mws::Errors::ValidationError.new('A shipping_tracking_number is needed') if !orders.first.has_key?(:shipping_tracking_number) || !orders.first[:shipping_tracking_number].present?
     raise Mws::Errors::ValidationError.new('orders must be a array.') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('At least one order is needed.') if orders.count == 0
     raise Mws::Errors::ValidationError.new('order_items must be a array.') if !orders.first[:order_items].is_a?(Array)

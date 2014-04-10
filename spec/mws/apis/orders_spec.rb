@@ -7,7 +7,7 @@ module Mws::Apis
     let(:defaults) {
       {
         merchant: 'GSWCJ4UBA31UTJ',
-        access: 'AYQAKIAJSCWMLYXAQ6K3', 
+        access: 'AYQAKIAJSCWMLYXAQ6K3',
         secret: 'Ubzq/NskSrW4m5ncq53kddzBej7O7IE5Yx9drGrX'
       }
     }
@@ -52,28 +52,28 @@ module Mws::Apis
         }.to raise_error Mws::Errors::ValidationError, 'A carrier_code is needed'
       end
 
-      it 'should require a shipping_method' do
+      it 'should not require a shipping_method' do
         expect {
           orders.send_fulfillment_data({}, [{:amazon_order_id => '123', :carrier_code => '12'}])
-        }.to raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
+        }.to_not raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
       end
 
-      it 'should require a shipping_method' do
+      it 'should not require a shipping_method' do
         expect {
           orders.send_fulfillment_data({}, [{:amazon_order_id => '123', :carrier_code => '12', :shipping_method => ''}])
-        }.to raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
+        }.to_not raise_error Mws::Errors::ValidationError, 'A shipping_method is needed'
       end
 
-      it 'should require a shipping_tracking_number' do
+      it 'should not require a shipping_tracking_number' do
         expect {
           orders.send_fulfillment_data({}, [{:amazon_order_id => '123', :carrier_code => '12', :shipping_method => '12'}])
-        }.to raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
+        }.to_not raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
       end
 
-      it 'should require a shipping_tracking_number' do
+      it 'should not require a shipping_tracking_number' do
         expect {
           orders.send_fulfillment_data({}, [{:amazon_order_id => '123', :carrier_code => '12', :shipping_method => '12', :shipping_tracking_number => ''}])
-        }.to raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
+        }.to_not raise_error Mws::Errors::ValidationError, 'A shipping_tracking_number is needed'
       end
 
       it 'should require order_items as a array' do

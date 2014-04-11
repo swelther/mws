@@ -195,7 +195,7 @@ class Mws::Apis::Orders
     raise Mws::Errors::ValidationError.new('orders must be an array') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if !orders.first.has_key?(:amazon_order_id)
     raise Mws::Errors::ValidationError.new('An amazon_order_id is needed') if !orders.first[:amazon_order_id].present?
-    raise Mws::Errors::ValidationError.new('A carrier_code is needed') if !orders.first.has_key?(:carrier_code) || !orders.first[:carrier_code].present?
+    raise Mws::Errors::ValidationError.new('carrier_code or carrier_name is needed') if !orders.first[:carrier_code].present? && !orders.first[:carrier_name].present?
     raise Mws::Errors::ValidationError.new('orders must be a array.') if !orders.is_a?(Array)
     raise Mws::Errors::ValidationError.new('At least one order is needed.') if orders.count == 0
     raise Mws::Errors::ValidationError.new('order_items must be a array.') if !orders.first[:order_items].is_a?(Array)
@@ -221,7 +221,8 @@ class Mws::Apis::Orders
               xml.MerchantOrderID params[:merchent_order_id] if params.has_key?(:merchent_order_id)
               xml.FulfillmentDate order.has_key?(:fulfillment_date) ? order[:fulfillment_date] : Time.now.iso8601
               xml.FulfillmentData {
-                xml.CarrierCode order[:carrier_code]
+                xml.CarrierCode order[:carrier_code] if order[:carrier_code].present?
+                xml.CarrierName order[:carrier_name] if order[:carrier_name].present?
                 xml.ShippingMethod order[shipping_method] || ''
                 xml.ShipperTrackingNumber order[:shipping_tracking_number]
               }

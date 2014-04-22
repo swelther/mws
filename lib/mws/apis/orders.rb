@@ -223,7 +223,7 @@ class Mws::Apis::Orders
               xml.FulfillmentData {
                 xml.CarrierCode order[:carrier_code] if order[:carrier_code].present?
                 xml.CarrierName order[:carrier_name] if order[:carrier_name].present?
-                xml.ShippingMethod order[shipping_method] || ''
+                xml.ShippingMethod order[:shipping_method] || ''
                 xml.ShipperTrackingNumber order[:shipping_tracking_number]
               }
               order[:order_items].each do | item |

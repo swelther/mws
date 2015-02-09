@@ -176,11 +176,6 @@ class Mws::Apis::Orders
         {
           :Amount => node.xpath('GiftWrapTax/Amount').text,
           :CurrencyCode => node.xpath('GiftWrapTax/CurrencyCode').text
-        },
-        :GiftWrapTax =>
-        {
-          :Amount => node.xpath('GiftWrapTax/Amount').text,
-          :CurrencyCode => node.xpath('GiftWrapTax/CurrencyCode').text
         }
       }
     end

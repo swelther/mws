@@ -6,7 +6,7 @@ class Mws::Apis::Orders
       market: 'ATVPDKIKX0DER'
     }.merge overrides
     @option_defaults = {
-      version: '2011-01-01',
+      version: '2013-09-01',
       list_pattern: '%{key}.%{ext}.%<index>d'
     }
   end
@@ -36,6 +36,7 @@ class Mws::Apis::Orders
         :PaymentMethod => node.xpath('PaymentMethod').text,
         :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
         :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
+        :IsPrime => node.xpath("IsPrime").text,
 
         :shipping_address =>
         {

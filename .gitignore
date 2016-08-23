@@ -17,4 +17,5 @@ test/tmp
 test/version_tmp
 tmp
 *.sublime-workspace
+*.sublime-project
 .idea/

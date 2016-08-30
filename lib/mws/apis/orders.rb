@@ -74,6 +74,7 @@ class Mws::Apis::Orders
         :PaymentMethod => node.xpath('PaymentMethod').text,
         :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
         :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
+        :IsPrime => node.xpath("IsPrime").text,
 
         :shipping_address =>
         {
@@ -114,6 +115,7 @@ class Mws::Apis::Orders
           :PaymentMethod => node.xpath('PaymentMethod').text,
           :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
           :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
+          :IsPrime => node.xpath("IsPrime").text,
 
           :shipping_address =>
           {

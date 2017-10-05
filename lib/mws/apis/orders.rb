@@ -26,27 +26,29 @@ class Mws::Apis::Orders
 
     doc.xpath('Orders/Order').map do | node |
       {
-        :AmazonOrderId => node.xpath('AmazonOrderId').text,
-        :TotalAmount => node.xpath('OrderTotal/Amount').text,
-        :CurrencyCode => node.xpath('OrderTotal/CurrencyCode').text,
-        :BuyerName => node.xpath('BuyerName').text,
-        :BuyerEmail => node.xpath('BuyerEmail').text,
-        :OrderStatus => node.xpath('OrderStatus').text,
-        :OrderType => node.xpath('OrderType').text,
-        :PaymentMethod => node.xpath('PaymentMethod').text,
-        :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
-        :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
-        :IsPrime => node.xpath("IsPrime").text,
+        :AmazonOrderId   => node.xpath('AmazonOrderId').text,
+        :TotalAmount     => node.xpath('OrderTotal/Amount').text,
+        :CurrencyCode    => node.xpath('OrderTotal/CurrencyCode').text,
+        :BuyerName       => node.xpath('BuyerName').text,
+        :BuyerEmail      => node.xpath('BuyerEmail').text,
+        :OrderStatus     => node.xpath('OrderStatus').text,
+        :OrderType       => node.xpath('OrderType').text,
+        :PaymentMethod   => node.xpath('PaymentMethod').text,
+        :PurchaseDate    => node.xpath('PurchaseDate').text.to_time,
+        :LastUpdatedAt   => node.xpath('LastUpdatedAt').text.to_time,
+        :IsPrime         => node.xpath("IsPrime").text,
+        :IsPremiumOrder  => node.xpath("IsPremiumOrder").text,
+        :IsBusinessOrder => node.xpath("IsBusinessOrder").text,
 
         :shipping_address =>
         {
-          :name => node.xpath('ShippingAddress/Name').text,
-          :street1 => node.xpath('ShippingAddress/AddressLine1').text,
-          :street2 => node.xpath('ShippingAddress/AddressLine2').text,
-          :post_code => node.xpath('ShippingAddress/PostalCode').text,
-          :city => node.xpath('ShippingAddress/City').text,
+          :name         => node.xpath('ShippingAddress/Name').text,
+          :street1      => node.xpath('ShippingAddress/AddressLine1').text,
+          :street2      => node.xpath('ShippingAddress/AddressLine2').text,
+          :post_code    => node.xpath('ShippingAddress/PostalCode').text,
+          :city         => node.xpath('ShippingAddress/City').text,
           :country_code => node.xpath('ShippingAddress/CountryCode').text,
-          :phone => node.xpath('ShippingAddress/Phone').text
+          :phone        => node.xpath('ShippingAddress/Phone').text
         }
       }
     end
@@ -64,27 +66,29 @@ class Mws::Apis::Orders
 
     doc.xpath('Orders/Order').map do | node |
       order = {
-        :AmazonOrderId => node.xpath('AmazonOrderId').text,
-        :TotalAmount => node.xpath('OrderTotal/Amount').text,
-        :CurrencyCode => node.xpath('OrderTotal/CurrencyCode').text,
-        :BuyerName => node.xpath('BuyerName').text,
-        :BuyerEmail => node.xpath('BuyerEmail').text,
-        :OrderStatus => node.xpath('OrderStatus').text,
-        :OrderType => node.xpath('OrderType').text,
-        :PaymentMethod => node.xpath('PaymentMethod').text,
-        :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
-        :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
-        :IsPrime => node.xpath("IsPrime").text,
+        :AmazonOrderId   => node.xpath('AmazonOrderId').text,
+        :TotalAmount     => node.xpath('OrderTotal/Amount').text,
+        :CurrencyCode    => node.xpath('OrderTotal/CurrencyCode').text,
+        :BuyerName       => node.xpath('BuyerName').text,
+        :BuyerEmail      => node.xpath('BuyerEmail').text,
+        :OrderStatus     => node.xpath('OrderStatus').text,
+        :OrderType       => node.xpath('OrderType').text,
+        :PaymentMethod   => node.xpath('PaymentMethod').text,
+        :PurchaseDate    => node.xpath('PurchaseDate').text.to_time,
+        :LastUpdatedAt   => node.xpath('LastUpdatedAt').text.to_time,
+        :IsPrime         => node.xpath("IsPrime").text,
+        :IsPremiumOrder  => node.xpath("IsPremiumOrder").text,
+        :IsBusinessOrder => node.xpath("IsBusinessOrder").text,
 
         :shipping_address =>
         {
-          :name => node.xpath('ShippingAddress/Name').text,
-          :street1 => node.xpath('ShippingAddress/AddressLine1').text,
-          :street2 => node.xpath('ShippingAddress/AddressLine2').text,
-          :post_code => node.xpath('ShippingAddress/PostalCode').text,
-          :city => node.xpath('ShippingAddress/City').text,
+          :name         => node.xpath('ShippingAddress/Name').text,
+          :street1      => node.xpath('ShippingAddress/AddressLine1').text,
+          :street2      => node.xpath('ShippingAddress/AddressLine2').text,
+          :post_code    => node.xpath('ShippingAddress/PostalCode').text,
+          :city         => node.xpath('ShippingAddress/City').text,
           :country_code => node.xpath('ShippingAddress/CountryCode').text,
-          :phone => node.xpath('ShippingAddress/Phone').text
+          :phone        => node.xpath('ShippingAddress/Phone').text
         }
       }
 
@@ -105,27 +109,29 @@ class Mws::Apis::Orders
 
       doc.xpath('Orders/Order').map do | node |
         order = {
-          :AmazonOrderId => node.xpath('AmazonOrderId').text,
-          :TotalAmount => node.xpath('OrderTotal/Amount').text,
-          :CurrencyCode => node.xpath('OrderTotal/CurrencyCode').text,
-          :BuyerName => node.xpath('BuyerName').text,
-          :BuyerEmail => node.xpath('BuyerEmail').text,
-          :OrderStatus => node.xpath('OrderStatus').text,
-          :OrderType => node.xpath('OrderType').text,
-          :PaymentMethod => node.xpath('PaymentMethod').text,
-          :PurchaseDate => node.xpath('PurchaseDate').text.to_time,
-          :LastUpdatedAt => node.xpath('LastUpdatedAt').text.to_time,
-          :IsPrime => node.xpath("IsPrime").text,
+          :AmazonOrderId   => node.xpath('AmazonOrderId').text,
+          :TotalAmount     => node.xpath('OrderTotal/Amount').text,
+          :CurrencyCode    => node.xpath('OrderTotal/CurrencyCode').text,
+          :BuyerName       => node.xpath('BuyerName').text,
+          :BuyerEmail      => node.xpath('BuyerEmail').text,
+          :OrderStatus     => node.xpath('OrderStatus').text,
+          :OrderType       => node.xpath('OrderType').text,
+          :PaymentMethod   => node.xpath('PaymentMethod').text,
+          :PurchaseDate    => node.xpath('PurchaseDate').text.to_time,
+          :LastUpdatedAt   => node.xpath('LastUpdatedAt').text.to_time,
+          :IsPrime         => node.xpath("IsPrime").text,
+          :IsPremiumOrder  => node.xpath("IsPremiumOrder").text,
+          :IsBusinessOrder => node.xpath("IsBusinessOrder").text,
 
           :shipping_address =>
           {
-            :name => node.xpath('ShippingAddress/Name').text,
-            :street1 => node.xpath('ShippingAddress/AddressLine1').text,
-            :street2 => node.xpath('ShippingAddress/AddressLine2').text,
-            :post_code => node.xpath('ShippingAddress/PostalCode').text,
-            :city => node.xpath('ShippingAddress/City').text,
+            :name         => node.xpath('ShippingAddress/Name').text,
+            :street1      => node.xpath('ShippingAddress/AddressLine1').text,
+            :street2      => node.xpath('ShippingAddress/AddressLine2').text,
+            :post_code    => node.xpath('ShippingAddress/PostalCode').text,
+            :city         => node.xpath('ShippingAddress/City').text,
             :country_code => node.xpath('ShippingAddress/CountryCode').text,
-            :phone => node.xpath('ShippingAddress/Phone').text
+            :phone        => node.xpath('ShippingAddress/Phone').text
           }
         }
 
@@ -237,7 +243,5 @@ class Mws::Apis::Orders
     end.to_xml
 
     @connection.feeds.submit order_xml, {:feed_type => :order_fulfillment}
-
   end
-
 end

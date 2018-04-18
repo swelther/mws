@@ -54,7 +54,11 @@ class Mws::Apis::Orders
     end
   end
 
+  # The ListOrders and ListOrdersByNextToken operations together share a maximum
+  # request quota of six and a restore rate of one request every minute. For
+  # definitions of throttling terminology, see Orders API.
   def list(params={})
+    requests = 1 # the first get below
     params[:markets] ||= [ params.delete(:markets) || params.delete(:market) || @param_defaults[:market] ].flatten.compact
 
     options = @option_defaults.merge action: 'ListOrders'
@@ -95,9 +99,12 @@ class Mws::Apis::Orders
       response.push(order)
     end
 
-    # TODO Throttling
-
     while !next_token.empty?
+      requests += 1
+
+      # throttle to avoid RequestThrottled errors
+      sleep(60) if requests > 5
+
       params[:Next_Token] = next_token
       params.delete(:market)
       params.delete(:Created_After)
